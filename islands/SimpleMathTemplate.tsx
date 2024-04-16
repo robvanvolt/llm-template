@@ -130,7 +130,7 @@ export default function SimpleMathTemplate(
   };
 
   return (
-    <div style={config.wrapperClass}>
+    <div class={config.wrapperClass}>
       {configInput.map((row, index) => (
         <div key={index} class={config.rowClass}>
           {row.map((item, itemIndex) => {
