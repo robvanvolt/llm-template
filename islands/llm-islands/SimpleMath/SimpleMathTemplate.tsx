@@ -1,10 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
 
-interface TemplateProps {
-  config: any;
-  configInput: any[][];
-}
-
 function transformArray(arr) {
   let currentStart = 0;
 
@@ -66,7 +61,6 @@ export default function SimpleMathTemplate(
   }
 
   const [userInputs, setUserInputs] = useState(
-    // count number of Inputs in configInput in all rows and add them up
     new Array(configInput.reduce((acc, row) => {
       return acc + row.filter((item) => item === "INPUT").length;
     }, 0)).fill(""),
@@ -78,33 +72,12 @@ export default function SimpleMathTemplate(
 
   const zippedDict = returnZippedDict(configInput);
 
-  // console.log(userInputs);
-  // console.log(results);
-  // console.log(zippedDict);
-
   useEffect(() => {
     setUserInputs(new Array(configInput.reduce((acc, row) => {
       return acc + row.filter((item) => item === "INPUT").length;
     }, 0)).fill(""));
     setResults(new Array(configInput.length).fill(null));
   }, [configInput]);
-
-  // useEffect(() => {
-  //   setUserInputs(new Array(configInput.reduce((acc, row) => {
-  //     return acc + row.filter((item) => item === "INPUT").length;
-  //     }
-  //   ).fill(""));
-
-  // const [zippedDict, setZippedDict] = useState(returnZippedDict(configInput));
-  // useEffect(() => {
-  //   setZippedDict(returnZippedDict(configInput));
-  // }, [configInput]);
-
-  // const [zippedDict, setZippedDict] = useState(returnZippedDict(configInput));
-  // const inputIndex = configInput.map((row) => findAllIndices(row, "INPUT"));
-  // const inputArray = transformArray(inputIndex);
-  // const zippedDict = zipArraysToDict(inputIndex, inputArray);
-  // console.log(zippedDict);
 
   const handleInputChange = (index: number, value: string) => {
     const updatedInputs = [...userInputs];

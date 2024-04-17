@@ -4,20 +4,47 @@
 
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $_layout from "./routes/_layout.tsx";
+import * as $components_slug_ from "./routes/components/[slug].tsx";
 import * as $index from "./routes/index.tsx";
-import * as $SimpleMathTemplate from "./islands/SimpleMathTemplate.tsx";
-import * as $TemplateWrapper from "./islands/TemplateWrapper.tsx";
+import * as $Header from "./islands/Header.tsx";
+import * as $llm_islands_BaseConfig from "./islands/llm-islands/BaseConfig.ts";
+import * as $llm_islands_BaseTemplate from "./islands/llm-islands/BaseTemplate.tsx";
+import * as $llm_islands_BaseWrapper from "./islands/llm-islands/BaseWrapper.tsx";
+import * as $llm_islands_Draggable_DraggableTemplate from "./islands/llm-islands/Draggable/DraggableTemplate.tsx";
+import * as $llm_islands_Draggable_DraggableWrapper from "./islands/llm-islands/Draggable/DraggableWrapper.tsx";
+import * as $llm_islands_Draggable_config from "./islands/llm-islands/Draggable/config.ts";
+import * as $llm_islands_SimpleMath_SimpleMathTemplate from "./islands/llm-islands/SimpleMath/SimpleMathTemplate.tsx";
+import * as $llm_islands_SimpleMath_SimpleMathWrapper from "./islands/llm-islands/SimpleMath/SimpleMathWrapper.tsx";
+import * as $llm_islands_SimpleMath_config from "./islands/llm-islands/SimpleMath/config.ts";
+import * as $menus from "./islands/menus.ts";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
+    "./routes/_layout.tsx": $_layout,
+    "./routes/components/[slug].tsx": $components_slug_,
     "./routes/index.tsx": $index,
   },
   islands: {
-    "./islands/SimpleMathTemplate.tsx": $SimpleMathTemplate,
-    "./islands/TemplateWrapper.tsx": $TemplateWrapper,
+    "./islands/Header.tsx": $Header,
+    "./islands/llm-islands/BaseConfig.ts": $llm_islands_BaseConfig,
+    "./islands/llm-islands/BaseTemplate.tsx": $llm_islands_BaseTemplate,
+    "./islands/llm-islands/BaseWrapper.tsx": $llm_islands_BaseWrapper,
+    "./islands/llm-islands/Draggable/DraggableTemplate.tsx":
+      $llm_islands_Draggable_DraggableTemplate,
+    "./islands/llm-islands/Draggable/DraggableWrapper.tsx":
+      $llm_islands_Draggable_DraggableWrapper,
+    "./islands/llm-islands/Draggable/config.ts": $llm_islands_Draggable_config,
+    "./islands/llm-islands/SimpleMath/SimpleMathTemplate.tsx":
+      $llm_islands_SimpleMath_SimpleMathTemplate,
+    "./islands/llm-islands/SimpleMath/SimpleMathWrapper.tsx":
+      $llm_islands_SimpleMath_SimpleMathWrapper,
+    "./islands/llm-islands/SimpleMath/config.ts":
+      $llm_islands_SimpleMath_config,
+    "./islands/menus.ts": $menus,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
