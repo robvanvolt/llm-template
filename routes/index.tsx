@@ -11,7 +11,7 @@ export default function Home() {
   };
 
   return (
-    <div class="grid place-items-center h-screen">
+    <div class="grid place-items-center h-full">
       <div
         class={`grid ${getColumnClass()} gap-6 px-6`}
       >
