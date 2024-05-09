@@ -1,60 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 
-export default function PlaygroundIsland() {
-  // const [input, setInput] = useState("<py-script>print('Now you can!')</py-script>")
-  const jlone = `<div class="flex justify-center items-center">
-  <div class="bg-white p-4 shadow-md rounded">
-      <h2 class="text-lg font-bold mb-4">English Practice: Vocabulary Quiz</h2>
-      <p id="question" class="text-green-500 text-xl"></p>
-      <input type="text" id="answerField" class="mt-2 p-2 border rounded w-full" placeholder="Enter your answer">
-      <button onclick="submitAnswer()" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Check Answer</button>
-      <p id="result" class="mt-4"></p>
-  </div>
-  </div>
-
-  <script>
-  let currentWord = '';
-
-  function generateQuestion() {
-      const words = [
-          'apple', 'banana', 'orange', 'strawberry', 'grape', 'kiwi',
-          'watermelon', 'pineapple', 'peach', 'blueberry'
-      ];
-      currentWord = words[Math.floor(Math.random() * words.length)];
-      document.getElementById('question').textContent = 'What is the synonym for ' + currentWord + '?';
-  }
-
-  function submitAnswer() {
-      const userAnswer = document.getElementById('answerField').value.toLowerCase();
-      const synonyms = {
-          apple: ['fruit', 'pomaceous fruit'],
-          banana: ['fruit', 'yellow fruit'],
-          orange: ['fruit', 'citrus fruit'],
-          strawberry: ['fruit', 'red fruit'],
-          grape: ['fruit', 'vine fruit'],
-          kiwi: ['fruit', 'green fruit'],
-          watermelon: ['fruit', 'melon'],
-          pineapple: ['fruit', 'tropical fruit'],
-          peach: ['fruit', 'stone fruit'],
-          blueberry: ['fruit', 'berry']
-      };
-      const correctAnswers = synonyms[currentWord];
-
-      if (correctAnswers.includes(userAnswer)) {
-          document.getElementById('result').textContent = 'Correct! Great job!';
-          document.getElementById('result').className = 'text-green-600';
-      } else {
-          document.getElementById('result').textContent = 'Incorrect. Try again!';
-          document.getElementById('result').className = 'text-red-600';
-      }
-  }
-
-  window.onload = generateQuestion;
-  </script>
-  `;
-  const jmone =
-    "<div class='card bg-slate-200'><div class='card-body'><h2 class='card-title'>Math Practice: Multiply & Divide</h2><p id='question' class='text-success'></p><input type='number' id='answerField' class='input input-bordered' placeholder='Enter your answer'><button onclick='submitAnswer()' class='btn btn-primary'>Check Answer</button><p id='result'></p></div></div><script>let a=0;function g(){let o=Math.random()>0.5?'*':'/',n1=Math.floor(Math.random()*12)+1,n2=Math.floor(Math.random()*12)+1;a=o==='*'?n1*n2:n1;document.getElementById('question').textContent=o==='*'?`${n1} x ${n2}`:`${n1*n2} ÷ ${n2}`}function submitAnswer(){let u=parseInt(document.getElementById('answerField').value);document.getElementById('result').textContent=u===a?'Correct! Great job!':'Incorrect. Try again!';document.getElementById('result').classList.remove('text-success','text-error');document.getElementById('result').classList.add(u===a?'text-success':'text-error');g()}window.onload=g;</script>";
-
+export default function PlaygroundIslandPython() {
   const pmone = `<div class='card bg-white'>
   <div class='card-body'>
       <h2 class='card-title'>Math Practice: Multiply & Divide</h2>
@@ -66,7 +12,6 @@ export default function PlaygroundIsland() {
 </div>
 
 <py-script>
-  from js import document
   import random
   from pyscript import document
   from pyweb import pydom
@@ -108,7 +53,7 @@ export default function PlaygroundIsland() {
         <h2 class="card-title">English Practice: Vocabulary Quiz</h2>
         <p id="question" class="text-success text-lg"></p>
         <input type="text" id="answerField" class="input input-bordered input-primary w-full" placeholder="Enter your answer">
-        <button py-click="submit_answer()" class="btn btn-primary mt-4">Check Answer</button>
+        <button py-click="submit_answer" class='btn btn-primary'>Check Answer</button>
         <p id="result" class="mt-4"></p>
     </div>
 </div>
@@ -116,7 +61,6 @@ export default function PlaygroundIsland() {
 </div>
 
 <py-script>
-from js import document
 from pyscript import document
 from pyweb import pydom
 import random
@@ -146,21 +90,21 @@ def generate_question():
     current_word = random.choice(words)
     pydom['#question'].html = 'What is the synonym for ' + current_word + '?'
 
-def submit_answer():
-    user_answer = pydom['#answerField'].html.lower()
+def submit_answer(event):
+    user_answer = pydom['#answerField'][0]._js.value.lower()
     correct_answers = synonyms[current_word]
     if user_answer in correct_answers:
-        pydom['#result'].html = 'Correct! Great job!'
-        pydom['#result']._js.className = 'text-green-600'
+        pydom['#result'][0].html = 'Correct! Great job!'
+        pydom['#result'][0]._js.className = 'text-green-600'
     else:
-        pydom['#result'].html = 'Incorrect. Try again!'
-        pydom['#result']._js.className = 'text-red-600'
-    document.getElementById('answerField').value = ''
+        pydom['#result'][0].html = 'Incorrect. Try again!'
+        pydom['#result'][0]._js.className = 'text-red-600'
+    pydom['#answerField'][0].html = ''
     generate_question()
 
 generate_question()
 </py-script>`;
-  const [input, setInput] = useState(pmone);
+  const [input, setInput] = useState(plone);
 
   // const [input, setInput] = useState("<div class=flex justify-center items-center><div class=bg-white p-4 shadow-md rounded><h2 class=text-lg font-bold mb-4>English Practice: Vocabulary Quiz</h2><p id=question class=text-green-500 text-xl></p><input type=text id=answerField class=mt-2 p-2 border rounded w-full placeholder=Enter your answer><button onclick=submitAnswer() class=mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded>Check Answer</button><p id=result class=mt-4></p></div></div><script>let word='';function generateQuestion(){const words=['apple','banana','orange','strawberry','grape','kiwi','watermelon','pineapple','peach','blueberry'];word=words[Math.floor(Math.random()*words.length)];document.getElementById('question').textContent='What is the synonym for '+word+'?'}function submitAnswer(){const userAnswer=document.getElementById('answerField').value.toLowerCase(),synonyms={apple:['fruit','pomaceous fruit'],banana:['fruit','yellow fruit'],orange:['fruit','citrus fruit'],strawberry:['fruit','red fruit'],grape:['fruit','vine fruit'],kiwi:['fruit','green fruit'],watermelon:['fruit','melon'],pineapple:['fruit','tropical fruit'],peach:['fruit','stone fruit'],blueberry:['fruit','berry']},correctAnswers=synonyms[word];correctAnswers.includes(userAnswer)?(document.getElementById('result').textContent='Correct! Great job!',document.getElementById('result').className='text-green-600'):(document.getElementById('result').textContent='Incorrect. Try again!',document.getElementById('result').className='text-red-600')}window.onload=generateQuestion;generateQuestion();</script>");
   // const [input, setInput] = useState("<div class='flex justify-center items-center'><div class='bg-white p-4 shadow-md rounded'><h2 class='text-lg font-bold mb-4'>Math Practice: Multiply & Divide</h2><p id='question' class='text-green-500 text-xl'></p><input type='number' id='answerField' class='mt-2 p-2 border rounded w-full' placeholder='Enter your answer'><button onclick='submitAnswer()' class='mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Check Answer</button><p id='result' class='mt-4'></p></div></div><script>let a=0;function g(){let o=Math.random()>0.5?'*':'/',n1=Math.floor(Math.random()*12)+1,n2=Math.floor(Math.random()*12)+1;a=o==='*'?n1*n2:n1;document.getElementById('question').textContent=o==='*'?`${n1} x ${n2}`:`${n1*n2} ÷ ${n2}`}function submitAnswer(){let u=parseInt(document.getElementById('answerField').value);document.getElementById('result').textContent=u===a?'Correct! Great job!':'Incorrect. Try again!';document.getElementById('result').className=u===a?'text-green-600':'text-red-600';g()}window.onload=g;</script>");
@@ -178,7 +122,7 @@ generate_question()
     <div class="w-full h-full flex">
       <div class="w-1/2 h-full flex flex-col justify-center items-center">
         {/* create 4 buttons for different examples */}
-        <div class="grid grid-cols-4 gap-2 my-2">
+        <div class="grid grid-cols-2 gap-2 my-2">
           <button
             class="btn btn-primary"
             onClick={() => setInput(pmone)}
@@ -190,18 +134,6 @@ generate_question()
             onClick={() => setInput(plone)}
           >
             Python Lang
-          </button>
-          <button
-            class="btn btn-primary"
-            onClick={() => setInput(jmone)}
-          >
-            JS Math
-          </button>
-          <button
-            class="btn btn-primary"
-            onClick={() => setInput(jlone)}
-          >
-            JS Lang
           </button>
         </div>
         <textarea

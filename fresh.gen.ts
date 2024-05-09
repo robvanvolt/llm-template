@@ -8,9 +8,11 @@ import * as $_layout from "./routes/_layout.tsx";
 import * as $api_getContent from "./routes/api/getContent.ts";
 import * as $components_slug_ from "./routes/components/[slug].tsx";
 import * as $index from "./routes/index.tsx";
+import * as $playground_python from "./routes/playground-python.tsx";
 import * as $playground from "./routes/playground.tsx";
 import * as $Header from "./islands/Header.tsx";
 import * as $PlaygroundIsland from "./islands/PlaygroundIsland.tsx";
+import * as $PlaygroundIslandPython from "./islands/PlaygroundIslandPython.tsx";
 import * as $llm_islands_BaseConfig from "./islands/llm-islands/BaseConfig.ts";
 import * as $llm_islands_BaseTemplate from "./islands/llm-islands/BaseTemplate.tsx";
 import * as $llm_islands_BaseWrapper from "./islands/llm-islands/BaseWrapper.tsx";
@@ -31,11 +33,13 @@ const manifest = {
     "./routes/api/getContent.ts": $api_getContent,
     "./routes/components/[slug].tsx": $components_slug_,
     "./routes/index.tsx": $index,
+    "./routes/playground-python.tsx": $playground_python,
     "./routes/playground.tsx": $playground,
   },
   islands: {
     "./islands/Header.tsx": $Header,
     "./islands/PlaygroundIsland.tsx": $PlaygroundIsland,
+    "./islands/PlaygroundIslandPython.tsx": $PlaygroundIslandPython,
     "./islands/llm-islands/BaseConfig.ts": $llm_islands_BaseConfig,
     "./islands/llm-islands/BaseTemplate.tsx": $llm_islands_BaseTemplate,
     "./islands/llm-islands/BaseWrapper.tsx": $llm_islands_BaseWrapper,

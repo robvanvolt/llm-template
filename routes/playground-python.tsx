@@ -1,8 +1,8 @@
 // route/playground.tsx
 
-import PlaygroundIsland from "../islands/PlaygroundIsland.tsx";
+import PlaygroundIslandPython from "../islands/PlaygroundIslandPython.tsx";
 
-export default function Playground() {
+export default function PlaygroundPython() {
   return (
     <>
       {
@@ -38,7 +38,7 @@ export default function Playground() {
           rel="stylesheet"
           type="text/css"
         />
-        <PlaygroundIsland />
+        <PlaygroundIslandPython />
       </html>
     </>
   );
