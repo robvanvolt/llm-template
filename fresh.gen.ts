@@ -19,6 +19,8 @@ import * as $llm_islands_BaseWrapper from "./islands/llm-islands/BaseWrapper.tsx
 import * as $llm_islands_Draggable_DraggableTemplate from "./islands/llm-islands/Draggable/DraggableTemplate.tsx";
 import * as $llm_islands_Draggable_DraggableWrapper from "./islands/llm-islands/Draggable/DraggableWrapper.tsx";
 import * as $llm_islands_Draggable_config from "./islands/llm-islands/Draggable/config.ts";
+import * as $llm_islands_GPT4o_GPT4oWrapper from "./islands/llm-islands/GPT4o/GPT4oWrapper.tsx";
+import * as $llm_islands_GPT4o_config from "./islands/llm-islands/GPT4o/config.ts";
 import * as $llm_islands_SimpleMath_SimpleMathTemplate from "./islands/llm-islands/SimpleMath/SimpleMathTemplate.tsx";
 import * as $llm_islands_SimpleMath_SimpleMathWrapper from "./islands/llm-islands/SimpleMath/SimpleMathWrapper.tsx";
 import * as $llm_islands_SimpleMath_config from "./islands/llm-islands/SimpleMath/config.ts";
@@ -48,6 +50,9 @@ const manifest = {
     "./islands/llm-islands/Draggable/DraggableWrapper.tsx":
       $llm_islands_Draggable_DraggableWrapper,
     "./islands/llm-islands/Draggable/config.ts": $llm_islands_Draggable_config,
+    "./islands/llm-islands/GPT4o/GPT4oWrapper.tsx":
+      $llm_islands_GPT4o_GPT4oWrapper,
+    "./islands/llm-islands/GPT4o/config.ts": $llm_islands_GPT4o_config,
     "./islands/llm-islands/SimpleMath/SimpleMathTemplate.tsx":
       $llm_islands_SimpleMath_SimpleMathTemplate,
     "./islands/llm-islands/SimpleMath/SimpleMathWrapper.tsx":

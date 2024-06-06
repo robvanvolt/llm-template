@@ -6,6 +6,7 @@ import Header from "../../islands/Header.tsx";
 
 import SimpleMathWrapper from "../../islands/llm-islands/SimpleMath/SimpleMathWrapper.tsx";
 import DraggableWrapper from "../../islands/llm-islands/Draggable/DraggableWrapper.tsx";
+import GPT4oWrapper from "../../islands/llm-islands/GPT4o/GPT4oWrapper.tsx";
 
 interface ComponentMapping {
   [key: string]: () => JSX.Element;
@@ -14,6 +15,7 @@ interface ComponentMapping {
 const componentMapping: ComponentMapping = {
   "simple-math": SimpleMathWrapper,
   "draggable": DraggableWrapper,
+  "gpt4o": GPT4oWrapper,
 };
 
 export default function SlugTemplate(props: PageProps) {

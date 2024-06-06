@@ -5,6 +5,10 @@ interface Menu {
 
 const menus: Menu[] = [
   {
+    "name": "GPT-4o",
+    "href": "gpt4o",
+  },
+  {
     "name": "SimpleMath",
     "href": "simple-math",
   },

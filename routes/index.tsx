@@ -19,16 +19,16 @@ export default function Home() {
           <a
             key={index}
             href={`/components/${menu.href}`}
-            class="border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+            class="border border-gray-300 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
           >
-            <div class="w-96 flex items-center justify-center">
+            <div class="max-w-96 flex flex-grow bg-white items-center justify-center">
               <img
                 src={`cards/` + menu.href + ".png"}
                 alt={menu.name}
-                class="p-4 bg-white"
+                class="p-4 bg-white object-contain w-full h-full"
               />
             </div>
-            <div class="p-4 text-center bg-orange-600 text-white tracking-wider font-bold self-end h-full">
+            <div class="p-4 text-center bg-orange-600 text-white tracking-wider font-bold self-end h-full max-h-16 w-full">
               {menu.name}
             </div>
           </a>
