@@ -7,7 +7,13 @@ import {
 } from "./config.ts";
 import html2canvas from "npm:html2canvas-pro";
 
-export default function GPT4oWrapper() {
+// import getEnvVarsForIsland handler from routes/api/getEnvVarsForIsland.ts
+
+// deno-lint-ignore no-explicit-any
+export default function GPT4oWrapper(props: any) {
+  const API_KEY = props.envValues.HYPR_API_KEY;
+  const API_URL = props.envValues.HYPR_API_URL;
+  
   const [imageSrc, setImageSrc] = useState(null);
   const [screenshotData, setScreenshotData] = useState<string | null>(null);
   const [prompt, setPrompt] = useState(startPrompt);
@@ -19,8 +25,8 @@ export default function GPT4oWrapper() {
     },
   ]);
 
-  const API_KEY = "hypr-lab-dhItb5DFQctQvafMzqgKT3BlbkFJfot58G96B2VMaS4u0015";
-  const API_URL = "https://api.hyprlab.io/v1/chat/completions";
+  // const API_KEY = Deno.env.get("HYPR_API_KEY")  || "";
+  // const API_URL = Deno.env.get("HYPR_API_URL")  || "";
 
   //   const takeScreenshot = () => {
   //     // const taskUiElement = document.getElementById("task-ui");
@@ -46,6 +52,7 @@ export default function GPT4oWrapper() {
   const takeScreenshot = () => {
     const element = document.getElementById("task-ui");
 
+    //@ts-ignore html2canvs-pro without ts
     html2canvas(element).then((canvas) => {
       // Convert the canvas to a data URL
       const dataUrl = canvas.toDataURL("image/png");
@@ -63,7 +70,8 @@ export default function GPT4oWrapper() {
 
       // Remove the link from the document
       document.body.removeChild(link);
-    }).catch((err) => {
+    // deno-lint-ignore no-explicit-any
+    }).catch((err: any) => {
       console.error("Screenshot capture failed:", err);
     });
   };
@@ -71,6 +79,7 @@ export default function GPT4oWrapper() {
   const returnScreenshot = async () => {
     const element = document.getElementById("task-ui");
     try {
+      //@ts-ignore html2canvs-pro without ts
       const canvas = await html2canvas(element);
       // Convert the canvas to a data URL
       const dataUrl = canvas.toDataURL("image/png");
@@ -79,6 +88,62 @@ export default function GPT4oWrapper() {
     } catch (err) {
       console.error("Screenshot capture failed:", err);
       return null;
+    }
+  };
+
+  // deno-lint-ignore no-explicit-any
+  const sendRequestWithImage = async (content: string, img: any) => {
+    const prompt = img ? "I want you to replicate the exercise in the image I have provided for you.\n\n" + content : content;
+    const messages = [
+      ...chatHistory,
+      {
+        role: "user",
+        content: img
+          ? [
+            {
+              type: "text",
+              text: prompt,
+            },
+            {
+              type: "image_url",
+              image_url: {
+                url: img,
+                detail: "high",
+              },
+            },
+          ]
+          : prompt,
+      },
+    ];
+
+    console.table(messages);
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({ model: "gpt-4o", messages }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const assistantResponse = data.choices[0].message.content;
+      console.log(assistantResponse);
+
+      // get everything between ```html and ``` and set it as the current task
+      const newTask = assistantResponse.match(/```html([\s\S]*?)```/)[1];
+      setCurrentTask(newTask);
+      setChatHistory([
+        ...messages,
+        {
+          role: "assistant",
+          content: assistantResponse,
+        },
+      ]);
+    } else {
+      console.error("Error:", response.status, response.statusText);
     }
   };
 
@@ -176,7 +241,8 @@ export default function GPT4oWrapper() {
   //   };
   // };
 
-  const handleDrop = (event) => {
+   // deno-lint-ignore no-explicit-any
+  const handleDrop = (event: any) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
     if (file && file.type.startsWith("image/")) {
@@ -249,8 +315,14 @@ export default function GPT4oWrapper() {
 
   const iterate = () => {
     const taskDescription = document.getElementById("layout-description").value;
-    sendRequest(taskDescription, screenshotData);
+    sendRequest(taskDescription, imageSrc);
   };
+
+  const processImage = () => {
+    const taskDescription = "Use Image";
+    sendRequestWithImage(taskDescription, imageSrc);
+
+  }
 
   const tasksubmit = () => {
     const taskDescription = document.getElementById("layout-description").value;
@@ -322,7 +394,13 @@ export default function GPT4oWrapper() {
           ))}
         </div>
       </div>
-      <div class="absolute bottom-4 right-4 grid grid-cols-2 space-x-2">
+      <div class="absolute bottom-4 right-4 grid grid-cols-3 space-x-2">
+        <button
+          class="bg-green-600 p-2 hover:bg-green-800 text-white rounded-md flex items-center justify-center cursor:pointer z-20"
+          onClick={processImage}
+        >
+          Use Image
+        </button>
         <button
           class="bg-yellow-600 p-2 hover:bg-yellow-800 text-white rounded-md flex items-center justify-center cursor:pointer z-20"
           onClick={iterate}

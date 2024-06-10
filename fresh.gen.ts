@@ -6,10 +6,12 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $api_getContent from "./routes/api/getContent.ts";
+import * as $api_getEnvVarsForIsland from "./routes/api/getEnvVarsForIsland.ts";
 import * as $components_slug_ from "./routes/components/[slug].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $playground_python from "./routes/playground-python.tsx";
 import * as $playground from "./routes/playground.tsx";
+import * as $python from "./routes/python.tsx";
 import * as $Header from "./islands/Header.tsx";
 import * as $PlaygroundIsland from "./islands/PlaygroundIsland.tsx";
 import * as $PlaygroundIslandPython from "./islands/PlaygroundIslandPython.tsx";
@@ -33,10 +35,12 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
     "./routes/api/getContent.ts": $api_getContent,
+    "./routes/api/getEnvVarsForIsland.ts": $api_getEnvVarsForIsland,
     "./routes/components/[slug].tsx": $components_slug_,
     "./routes/index.tsx": $index,
     "./routes/playground-python.tsx": $playground_python,
     "./routes/playground.tsx": $playground,
+    "./routes/python.tsx": $python,
   },
   islands: {
     "./islands/Header.tsx": $Header,

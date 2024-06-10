@@ -1,6 +1,6 @@
 import { JSX } from "preact/jsx-runtime";
 
-import { PageProps } from "$fresh/server.ts";
+import { PageProps, Handlers } from "$fresh/server.ts";
 
 import Header from "../../islands/Header.tsx";
 
@@ -8,8 +8,19 @@ import SimpleMathWrapper from "../../islands/llm-islands/SimpleMath/SimpleMathWr
 import DraggableWrapper from "../../islands/llm-islands/Draggable/DraggableWrapper.tsx";
 import GPT4oWrapper from "../../islands/llm-islands/GPT4o/GPT4oWrapper.tsx";
 
+import { handler as getEnvVarsForIsland } from "../api/getEnvVarsForIsland.ts";
+
+export const handler: Handlers = {
+  async GET(_req, _ctx) {
+    const response = getEnvVarsForIsland(_req, _ctx);
+    const content = await response.text();
+    return _ctx.render(content);
+  },
+};
+
 interface ComponentMapping {
-  [key: string]: () => JSX.Element;
+  // deno-lint-ignore no-explicit-any
+  [key: string]: (envValues?: any) => JSX.Element;
 }
 
 const componentMapping: ComponentMapping = {
@@ -19,12 +30,13 @@ const componentMapping: ComponentMapping = {
 };
 
 export default function SlugTemplate(props: PageProps) {
+  const env_vars = JSON.parse(props.data);
   const ComponentToRender = componentMapping[props.params.slug];
   return (
     <>
       <Header active={props.params.slug} />
       {ComponentToRender
-        ? <ComponentToRender />
+        ? props.params.slug == 'gpt4o' ? <ComponentToRender envValues={env_vars} /> : <ComponentToRender />
         : <p>No component found for this slug.</p>}
     </>
   );
